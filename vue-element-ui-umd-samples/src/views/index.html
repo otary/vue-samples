@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>ElementUI UMD示例</title>
+
+        <link rel="stylesheet" href="../../vendor/element-ui/2.9.2/lib/theme-chalk/index.css">
+    </head>
+    <body>
+        <script src="../../vendor/vue/2.6.10/vue.min.js"></script>
+        <script src="../../vendor/element-ui/2.9.2/lib/index.js"></script>
+
+
+        <div id="app">
+            <el-button @click="visible = true">Button</el-button>
+            <el-dialog :visible.sync="visible" title="Hello world">
+                <p>Try Element</p>
+            </el-dialog>
+        </div>
+
+        <script>
+            new Vue({
+                el: '#app',
+                data: function () {
+                    return {visible: false}
+                }
+            })
+        </script>
+    </body>
+</html>
