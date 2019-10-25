@@ -2,7 +2,7 @@
     <div id="app">
         <img src="./assets/logo.png">
 
-        <el-tabs type="card" activeName="await-async">
+        <el-tabs type="card" activeName="await-async示例">
             <el-tab-pane label="await/async" name="await-async">
                 <el-alert>
                     同步 / 异步请求示例
@@ -22,38 +22,51 @@
                 <div v-html="syncResult"></div>
             </el-tab-pane>
 
-            <el-tab-pane label="$emit">
-                <my-component></my-component>
+            <el-tab-pane label="$emit示例">
+                <child-component></child-component>
+
+                <div>父组件接收到: <span></span></div>
             </el-tab-pane>
         </el-tabs>
-
-
     </div>
 </template>
 
 <script>
     import request from './util/request';
 
-    import axios from 'axios';
-
-
-    const MyComponent = {
-        template: "<div>This is MyComponent!</div>"
+    /**
+     *
+     * @type {{template: string}}
+     */
+    const ChildComponent = {
+        template: `<div style="border: 1px solid red; margin: 0 auto; width: 50%;">
+                        <h3>This is ChildComponent!</h3>
+                        <el-row>
+                            <el-col :span="5">
+                                <el-input v-model="emitData"></el-input>
+                            </el-col>
+                           <el-col :span="5">
+                                <el-button @click="doEmit()">使用$emit传递参数</el-button>
+                            </el-col>
+                        </el-row>
+                   </div>`,
+        data() {
+            return {
+                emitData: ''
+            }
+        },
+        method: {
+            doEmit() {
+                this.$emit()
+            }
+        }
     }
 
     export default {
         components: {
-            "my-component": MyComponent
+            "ChildComponent": ChildComponent
         },
         methods: {
-            startHacking() {
-                this.$notify({
-                    title: 'It works!',
-                    type: 'success',
-                    message: 'We\'ve laid the ground work for you. It\'s time for you to build something epic!',
-                    duration: 5000
-                })
-            },
             getRepos: function () {
                 return request.get('https://api.github.com/users/otary/repos');
             },
