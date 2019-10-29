@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <!-- 子组件 -> 父组件传值 -->
+    <section>
         <child-component v-on:update="receive"></child-component>
 
         <div style="width: 500px; margin: 20px auto;">
@@ -8,7 +9,7 @@
                 <el-alert type="success">{{recivedData}}</el-alert>
             </el-card>
         </div>
-    </div>
+    </section>
 </template>
 
 <script>
