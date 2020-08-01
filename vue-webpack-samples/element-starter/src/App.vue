@@ -14,6 +14,12 @@
             <el-tab-pane label="vuex示例">
                 <vuex-samples></vuex-samples>
             </el-tab-pane>
+
+            <el-tab-pane label="inject示例">
+                <parent-form :day="10">
+                    <inject-samples></inject-samples>
+                </parent-form>
+            </el-tab-pane>
         </el-tabs>
     </div>
 </template>
@@ -24,7 +30,9 @@
         components: {
             "AsyncSamples": () => import('./components/AsyncSamples.vue'),
             "EmitSamples": () => import('./components/EmitSamples.vue'),
-            "VuexSamples": () => import('./components/VuexSamples.vue')
+            "VuexSamples": () => import('./components/VuexSamples.vue'),
+            "ParentForm": () => import('./components/inject/ParentForm.vue'),
+            "InjectSamples": ()=> import('./components/inject/InjectSamples.vue')
         }
     }
 </script>
