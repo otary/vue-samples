@@ -150,12 +150,14 @@
              */
             ...mapActions(['getUserInfo', 'getShopInfo']),
             getUserInfo2: function () {
-                this.getUserInfo();
+                //this.getUserInfo();
+                this.$store.dispatch('user/getUserInfo')
 
                 this.$message.success("获取用户: " + this.userName);
             },
             getShopInfo2: function () {
-                this.getShopInfo();
+                //this.getShopInfo();
+                this.$store.dispatch('shop/getShopInfo')
 
                 this.$message.success("获取到店名: " + this.shopName)
             }

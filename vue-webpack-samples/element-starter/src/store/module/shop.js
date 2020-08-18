@@ -1,6 +1,5 @@
 
 export default {
-
     state: {
         name: '',
         opened: false,
