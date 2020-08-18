@@ -43,6 +43,19 @@
                     <el-button @click="changeUserByActions2">更改当前用户(mapAction方式)</el-button>
                 </el-card>
             </el-col>
+
+        </el-row>
+
+        <el-row>
+            <el-col :span="6">
+                <el-card>
+                    <div slot="header">
+                        模块化
+                    </div>
+                    <el-button @click="getUserInfo2">获取用户(user模块的getUserInfo)</el-button>
+                    <el-button @click="getShopInfo2">更改当前用户(mapAction方式)</el-button>
+                </el-card>
+            </el-col>
         </el-row>
 
     </section>
@@ -54,7 +67,12 @@
     export default {
         name: "VuexSamples",
         computed: {
-            ...mapState(['userInfo'])
+            ...mapState(['userInfo']),
+            // 多模块，无法使用数组缩略形式
+            ...mapState({
+                userName: state => state.user.name,
+                shopName: state => state.shop.name
+            }),
         },
         methods: {
             /**
@@ -111,6 +129,10 @@
                 // 使用mapMutations方式
                 this.changeUserInternal2(this);
             },
+
+            /**
+             * actions示例
+             */
             ...mapActions(['changeUserPromise']),
             changeUserByActions: function () {
                 // dispatch调用方式
@@ -119,7 +141,25 @@
             changeUserByActions2: function () {
                 // mapActions调用方式
                 this.changeUserPromise(this);
+            },
+
+            /**
+             * module示例
+             * 提示: actions可使用缩略方式获取，需要注意各个模块方法名冲突
+             * 提示2：state不可使用缩略方式获取，各模块间state字段名可重复
+             */
+            ...mapActions(['getUserInfo', 'getShopInfo']),
+            getUserInfo2: function () {
+                this.getUserInfo();
+
+                this.$message.success("获取用户: " + this.userName);
+            },
+            getShopInfo2: function () {
+                this.getShopInfo();
+
+                this.$message.success("获取到店名: " + this.shopName)
             }
+
         }
     }
 </script>
