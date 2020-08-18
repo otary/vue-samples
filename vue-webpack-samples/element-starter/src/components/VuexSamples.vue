@@ -34,13 +34,22 @@
                 </el-card>
             </el-col>
 
+            <el-col :span="6">
+                <el-card>
+                    <div slot="header">
+                        actions
+                    </div>
+                    <el-button @click="changeUserByActions">更改当前用户(this.$store.commit()方式)</el-button>
+                    <el-button @click="changeUserByActions2">更改当前用户(mapAction方式)</el-button>
+                </el-card>
+            </el-col>
         </el-row>
 
     </section>
 </template>
 
 <script>
-    import {mapState, mapGetters, mapMutations} from 'vuex';
+    import {mapState, mapGetters, mapMutations, mapActions} from 'vuex';
 
     export default {
         name: "VuexSamples",
@@ -101,6 +110,15 @@
             changeUserByMutations2: function () {
                 // 使用mapMutations方式
                 this.changeUserInternal2(this);
+            },
+            ...mapActions(['changeUserPromise']),
+            changeUserByActions: function () {
+                // dispatch调用方式
+                this.$store.dispatch('changeUserPromise', this);
+            },
+            changeUserByActions2: function () {
+                // mapActions调用方式
+                this.changeUserPromise(this);
             }
         }
     }
