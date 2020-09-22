@@ -20,6 +20,10 @@
                     <inject-samples></inject-samples>
                 </parent-form>
             </el-tab-pane>
+
+            <el-tab-pane label="static变量文件示例">
+                <static-samples></static-samples>
+            </el-tab-pane>
         </el-tabs>
     </div>
 </template>
@@ -32,7 +36,8 @@
             "EmitSamples": () => import('./components/EmitSamples.vue'),
             "VuexSamples": () => import('./components/VuexSamples.vue'),
             "ParentForm": () => import('./components/inject/ParentForm.vue'),
-            "InjectSamples": ()=> import('./components/inject/InjectSamples.vue')
+            "InjectSamples": ()=> import('./components/inject/InjectSamples.vue'),
+            "StaticSamples": ()=> import('./components/StaticSamples.vue')
         }
     }
 </script>
