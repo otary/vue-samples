@@ -8,9 +8,10 @@
     "build": "rimraf dist && webpack -p --progress --hide-modules"
   },
   "dependencies": {
+    "@otary/element-ext": "^0.1.3",
     "element-ui": "^2.3.4",
-    "vue": "^2.5.16",
-    "@otary/element-ext": "^0.1.3"
+    "lodash": "^4.17.20",
+    "vue": "^2.5.16"
   },
   "engines": {
     "node": ">=6"
