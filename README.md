@@ -13,3 +13,6 @@
     - 同步/异步
     - $emit(子组件->父组件传递参数)
     - vuex（store）
+    - inject示例
+    - async/wait示例
+    - static示例
