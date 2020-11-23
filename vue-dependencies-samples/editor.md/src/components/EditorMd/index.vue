@@ -6,14 +6,14 @@
 
     </div>-->
 
-    <div id="editorMd">
+    <div id="editorMd" style="width: 100%; height: 100%;">
 
     </div>
 </template>
 
 <script>
-    import scriptjs from 'scriptjs';
-    import editorMd from 'editor.md/editormd'
+    // import scriptjs from 'scriptjs';
+    import editorMd2 from 'editor.md/editormd'
 
     export default {
         name: "EditorMd",
@@ -32,10 +32,15 @@
             }
         },
         mounted() {
-            editorMd("editorMd", {
-                width: "100%",
-                height: "100%"
-            })
+            this.$nextTick(()=> {
+             editorMd2()("editorMd", {
+                    width: '100%',
+                    height: '100%',
+                    path: 'static/editor.md/lib/'
+                })
+
+            });
+
         }
     }
 </script>
