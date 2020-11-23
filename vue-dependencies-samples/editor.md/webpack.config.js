@@ -15,7 +15,7 @@ module.exports = (options = {}) => ({
     path: resolve(__dirname, 'dist'),
     filename: options.dev ? '[name].js' : '[name].js?[chunkhash]',
     chunkFilename: '[id].js?[chunkhash]',
-    publicPath: options.dev ? '/assets/' : publicPath
+    publicPath: options.dev ? '/' : publicPath
   },
   module: {
     rules: [{
@@ -53,11 +53,9 @@ module.exports = (options = {}) => ({
       $: "jquery",
       jQuery: "jquery"
     }),
-    new CopyWebpackPlugin({
-      patterns: [ // 复制插件
-        { from: path.join(__dirname, 'src/static'), to: path.join(__dirname,'dist/static') }
-      ]
-    })
+    new CopyWebpackPlugin([
+          { from: path.join(__dirname, 'src/static'), to: path.join(__dirname,'dist/static') }
+    ])
   ],
   resolve: {
     alias: {
