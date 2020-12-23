@@ -9,8 +9,6 @@
                 </transition-group>
             </draggable>
         </el-card>
-
-
     </div>
 </template>
 
