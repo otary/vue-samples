@@ -43,7 +43,7 @@
         data() {
             return {
                 playerOptions: {
-                    height: '320',
+                    //height: '320',
                     width: '100%',
                     sources: [{
                         // mp4
@@ -56,7 +56,7 @@
                         src: "http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8",
                         withCredentials: false
                     }],
-                    playbackRates: [0.7, 1.0, 1.5, 2.0],
+                    playbackRates: [0.7, 1.0, 1.5, 2.0], // 播放速度列表
                     controlBar: {
                         timeDivider: false,
                         durationDisplay: false
@@ -66,11 +66,13 @@
                     autoplay: true, // 自动播放
                     // controls: true, // 控制条
                     fluid: true, // 按比例缩放适应容器
-                    // preload: 'auto', // 预加载
+                    // preload: 'auto', // [ auto:当页面加载后载入整个视频; meta:当页面加载后只载入元数据; none:当页面加载后不载入视频]
                     // muted: true, // 消除所有音频
                     // loop: false, // 循环播放
                     aspectRatio: "16:9",
                     // poster: 'https://surmon-china.github.io/vue-quill-editor/static/images/surmon-9.jpg' //首屏图片
+                    language: 'zh-CN',
+                    muted: false, // 是否静音
                 }
             }
         },
@@ -79,8 +81,6 @@
         },
         methods: {
             playerReadied(player) {
-                console.log(player.tech)
-                var hls = player.tech({IWillNotUseThisInPlugins: true}).hls
                 player.tech_.hls.xhr.beforeRequest = function (options) {
                     // console.log(options)
                     return options
