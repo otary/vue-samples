@@ -5,13 +5,6 @@ import App from './App.vue'
 
 Vue.use(ElementUI)
 
-
-// 视频播放 vue-video-player
-
-// require videojs style
-
-// import 'vue-video-player/src/custom-theme.css'
-
 Vue.config.productionTip = false;
 
 new Vue({
