@@ -25,6 +25,14 @@
                 <static-samples></static-samples>
             </el-tab-pane>
         </el-tabs>
+
+        <br/><br/>
+        <hr/>
+        <br/><br/>
+
+        <el-card header="路由">
+            <router-view></router-view>
+        </el-card>
     </div>
 </template>
 
