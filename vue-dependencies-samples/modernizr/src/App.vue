@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-
+        <el-button type="primary" @click="handleCheckBoxSizing">检测boxSizing是否支持</el-button>
     </div>
 </template>
 
@@ -15,14 +15,18 @@
 
         },
         methods: {
-            startHacking() {
-                this.$notify({
-                    title: 'It works!',
-                    type: 'success',
-                    message: 'We\'ve laid the ground work for you. It\'s time for you to build something epic!',
-                    duration: 5000
-                })
+            /**
+             * 检测CSS前缀支持性
+             */
+            handleCheckBoxSizing() {
+               this.$message.success(Modernizr.prefixed('boxSizing'));
+            },
+            handle() {
+                //Modernizr.addTest()
             }
+        },
+        computed: {
+
         }
     }
 </script>
