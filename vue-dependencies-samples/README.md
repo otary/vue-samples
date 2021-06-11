@@ -4,9 +4,17 @@
 
 图表
 
+## highchart
+
+图表库
+
 ## vditor
 
 基于Vue的Markdown编辑器
+
+## editor.md
+
+Markdown编辑器
 
 ## mavon-editor
 
@@ -24,6 +32,29 @@
 
 动画
 
+## crypto-js
+
+加密算法
+
+## dom-to-image
+
+html元素转图片
+
+## js-beautity
+
+代码美化工具
+
+## videojs
+
+videojs播放器
+
+## vue-video-player
+
+基于dPlayer的播放器
+
+## vuedraggable
+
+元素拖拽
 
 
 
