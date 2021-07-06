@@ -13,5 +13,8 @@ export default new VueRouter({
     }, {
         path: '/animate-chart',
         component: ()=> import('../pages/AnimateChart')
+    }, {
+        path: '/line',
+        component: ()=> import('../pages/Line')
     }]
 })
