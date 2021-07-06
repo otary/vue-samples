@@ -9,5 +9,8 @@ export default new VueRouter({
         path: '/',
         name: 'Home',
         component: () => import('../pages/Home')
+    }, {
+        path: '/audio',
+        component: () => import('../pages/BaiduAudio')
     }]
 })
