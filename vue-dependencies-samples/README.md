@@ -60,6 +60,10 @@ videojs播放器
 
 ACE编辑器（代码高亮）
 
+## vue-echarts
 
-## 
+基于Vue的Echart
 
+## audio
+
+语音朗读
