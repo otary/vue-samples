@@ -16,5 +16,8 @@ export default new VueRouter({
     }, {
         path: '/line',
         component: ()=> import('../pages/Line')
+    }, {
+        path: '/animate-histogram-chart',
+        component: ()=> import('../pages/AnimateHistogramChartPage')
     }]
 })

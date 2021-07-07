@@ -63,6 +63,7 @@
     import flags from '../data/data.json'
     import animateData from '../data/life-expectancy-table.json'
 
+
     var years = [];
     for (var i = 0; i < animateData.length; ++i) {
         if (years.length === 0 || years[years.length - 1] !== animateData[i][4]) {
@@ -98,12 +99,12 @@
                         right: 80
                     },
                     xAxis: {
-                        max: 'dataMax',
+                       /* max: 'dataMax',
                         label: {
                             formatter: function (n) {
                                 return Math.round(n);
                             }
-                        }
+                        }*/
                     },
                     dataset: {
                         source: animateData.slice(1).filter(function (d) {
@@ -143,7 +144,7 @@
                             }
                         },
                         encode: {
-                            x: dimension,
+                            x: 0,
                             y: 3
                         },
                         label: {
