@@ -39,7 +39,7 @@
         },
         data() {
             return {
-                //  animateChartOption: {}
+
             }
         },
         props: {
@@ -47,6 +47,9 @@
                 type: Object,
                 default() {
                     return {
+                        title: {
+                            subtext: '数据来自国家统计局'
+                        },
                         grid: {
                             top: 10,
                             bottom: 30,
@@ -63,17 +66,12 @@
                             max: 10,
                             axisLabel: {
                                 show: true,
+                                rotate: 30,
                                 textStyle: {
                                     fontSize: 14
                                 },
                                 formatter: function (value) {
                                     return value;
-                                },
-                                rich: {
-                                    flag: {
-                                        fontSize: 25,
-                                        padding: 5
-                                    }
                                 }
                             },
                             animationDuration: 300,
@@ -133,9 +131,7 @@
         },
         computed: {
             option() {
-                const op = merge(this.defaultOption, this.animateOption);
-                console.log(op)
-                return op;
+                return merge(this.defaultOption, this.animateOption);
             }
         }
     }

@@ -19,5 +19,8 @@ export default new VueRouter({
     }, {
         path: '/animate-histogram-chart',
         component: ()=> import('../pages/AnimateHistogramChartPage')
+    }, {
+        path: '/animate-time-line-chart',
+        component: ()=> import('../pages/AnimateTimeLineChart')
     }]
 })

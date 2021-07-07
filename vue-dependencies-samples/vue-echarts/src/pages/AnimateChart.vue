@@ -35,7 +35,6 @@
     // Vue.component('v-chart', ECharts)
 
     var updateFrequency = 2000;
-    var dimension = 0;
 
     var countryColors = {
         "Australia": "#00008b",
@@ -94,7 +93,7 @@
                 animateOption: {
                     grid: {
                         top: 10,
-                        bottom: 30,
+                        bottom: 130,
                         left: 150,
                         right: 80
                     },
