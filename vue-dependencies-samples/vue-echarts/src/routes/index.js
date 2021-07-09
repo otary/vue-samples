@@ -22,5 +22,8 @@ export default new VueRouter({
     }, {
         path: '/animate-time-line-chart',
         component: ()=> import('../pages/AnimateTimeLineChart')
+    }, {
+        path: '/radar',
+        component: ()=> import('../pages/Radar')
     }]
 })

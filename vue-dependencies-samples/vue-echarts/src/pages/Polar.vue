@@ -37,8 +37,6 @@
         PolarComponent
     ]);
 
-
-
     export default {
         name: "Polar",
         components: {
