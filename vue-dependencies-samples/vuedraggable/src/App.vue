@@ -1,39 +1,28 @@
 <template>
-    <div id="app">
-        <el-card title="简单">
-            <draggable>
-                <transition-group>
-                    <el-button v-for="item in originItems">
-                        {{ item.name }}
-                    </el-button>
-                </transition-group>
-            </draggable>
-        </el-card>
+    <div>
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
-    import draggable from 'vuedraggable'
-
     export default {
-        components: {
-            draggable,
-        },
         data() {
             return {
-                originItems: []
+
             }
         },
         mounted() {
-            for (let i = 0; i < 10; i++) {
-                this.originItems.push({
-                    name: '元素' + i
-                })
-            }
 
         },
         methods: {
-
+            startHacking() {
+                this.$notify({
+                    title: 'It works!',
+                    type: 'success',
+                    message: 'We\'ve laid the ground work for you. It\'s time for you to build something epic!',
+                    duration: 5000
+                })
+            }
         }
     }
 </script>

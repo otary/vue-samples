@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <!-- 方式一 -->
+        <!-- 方式一: 使用原生的class -->
         <div class="box">
             <span style="display: inline-block;" class="animate__animated animate__fadeInRight">土</span>
             <span style="display: inline-block;" class="animate__animated animate__fadeInRight">地</span>
@@ -26,7 +26,7 @@
             <span style="display: inline-block;" class="animate__animated animate__fadeInRight">。</span>
         </div>
 
-        <!-- 方式二 -->
+        <!-- 方式二：自定义class，使用css的animation属性 -->
         <div class="box">
             <span class="text-fade-in-right-big animate__animated animate__slower" >土</span>
             <span class="text-fade-in-right-big" >地</span>
