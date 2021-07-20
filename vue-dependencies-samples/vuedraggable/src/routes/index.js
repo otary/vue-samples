@@ -11,5 +11,8 @@ export default new VueRouter({
     }, {
         path: '/vue-drag',
         component: () => import('../pages/VueDraggablePage')
+    }, {
+        path: '/native-drag',
+        component: () => import('../pages/NativeDragPage')
     }]
 })
