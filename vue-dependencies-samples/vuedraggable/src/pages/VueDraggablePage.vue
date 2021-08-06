@@ -1,6 +1,26 @@
 <template>
     <div id="app">
-        <el-card title="简单">
+        <el-card header="简单">
+            <draggable>
+                <transition-group>
+                    <el-button v-for="(item, index) in originItems" :key="index">
+                        {{ item.name }}
+                    </el-button>
+                </transition-group>
+            </draggable>
+        </el-card>
+
+
+        <el-card header="多组拖拽">
+            <draggable v-model="originItems">
+                <transition-group type="transition" name="flip-list">
+                  <el-button v-for="(item, index) in originItems" :key="item.name">
+                        {{ item.name }}
+                    </el-button>
+                </transition-group>
+            </draggable>
+
+
             <draggable>
                 <transition-group>
                     <el-button v-for="(item, index) in originItems" :key="index">
@@ -15,13 +35,29 @@
 <script>
     import draggable from 'vuedraggable'
 
+    const message = [
+        "vue.draggable",
+        "draggable",
+        "component",
+        "for",
+        "vue.js 2.0",
+        "based",
+        "on",
+        "Sortablejs"
+    ];
+
+
     export default {
         components: {
             draggable,
         },
         data() {
             return {
-                originItems: []
+                originItems: [],
+                list: message.map((name, index) => {
+                    return { name, order: index + 1 };
+                })
+
             }
         },
         mounted() {
@@ -33,6 +69,9 @@
 
         },
         methods: {
+
+        },
+        computed: {
 
         }
     }
@@ -48,5 +87,10 @@
         height: 100%;
         padding: 0;
         margin: 0;
+    }
+
+
+    .flip-list-move {
+        transition: transform 0.5s;
     }
 </style>
