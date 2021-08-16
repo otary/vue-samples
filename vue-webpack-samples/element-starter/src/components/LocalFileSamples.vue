@@ -15,7 +15,7 @@
             }
         },
         mounted() {
-            // 加载静态变量文件
+            // 加载本地文件
             api.getStaticJsonFile("lib/config.json").then((resp) => {
                 this.localhost = resp.data.localhost;
             });

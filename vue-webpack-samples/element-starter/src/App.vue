@@ -21,8 +21,8 @@
                 </parent-form>
             </el-tab-pane>
 
-            <el-tab-pane label="static变量文件示例">
-                <static-samples></static-samples>
+            <el-tab-pane label="加载本地文件示例">
+                <local-file-samples></local-file-samples>
             </el-tab-pane>
         </el-tabs>
 
@@ -45,7 +45,7 @@
             "VuexSamples": () => import('./components/VuexSamples.vue'),
             "ParentForm": () => import('./components/inject/ParentForm.vue'),
             "InjectSamples": ()=> import('./components/inject/InjectSamples.vue'),
-            "StaticSamples": ()=> import('./components/StaticSamples.vue')
+            "LocalFileSamples": ()=> import('./components/LocalFileSamples.vue')
         }
     }
 </script>
