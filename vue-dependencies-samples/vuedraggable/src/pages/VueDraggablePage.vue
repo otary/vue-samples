@@ -14,20 +14,28 @@
         <el-card header="多组拖拽">
             <draggable v-model="originItems">
                 <transition-group type="transition" name="flip-list">
-                  <el-button v-for="(item, index) in originItems" :key="item.name">
-                        {{ item.name }}
-                    </el-button>
-                </transition-group>
-            </draggable>
-
-
-            <draggable>
-                <transition-group>
                     <el-button v-for="(item, index) in originItems" :key="index">
                         {{ item.name }}
                     </el-button>
                 </transition-group>
             </draggable>
+
+            <br/>
+
+            <draggable animation="600">
+                <!-- 使用 animation 动画属性，元素不能是inline -->
+                <transition-group>
+                    <div v-for="(item, index) in originItems" :key="index"
+                         :style="{display: 'inline-block', margin: '5px'}">
+                        <el-button>
+                            {{ item.name }}
+                        </el-button>
+                    </div>
+                </transition-group>
+            </draggable>
+
+            <br/>
+
         </el-card>
     </div>
 </template>
@@ -55,7 +63,7 @@
             return {
                 originItems: [],
                 list: message.map((name, index) => {
-                    return { name, order: index + 1 };
+                    return {name, order: index + 1};
                 })
 
             }
@@ -63,17 +71,14 @@
         mounted() {
             for (let i = 0; i < 10; i++) {
                 this.originItems.push({
-                    name: '元素' + i
+                    name: '元素' + i,
+                    order: i
                 })
             }
 
         },
-        methods: {
-
-        },
-        computed: {
-
-        }
+        methods: {},
+        computed: {}
     }
 </script>
 
