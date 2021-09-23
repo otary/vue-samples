@@ -50,6 +50,7 @@
 
         <!-- 增加边框 -->
         <font-awesome-icon icon="spinner" border />
+        <font-awesome-icon :prefix="fas" icon="angle-double-down" border />
 
         <br/>
 
