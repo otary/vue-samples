@@ -150,6 +150,7 @@
         },
         methods: {
             cloneComponent(origin) {
+                console.log(origin);
                 // 可以在此处自定义元素属性
                 return origin;
             },
