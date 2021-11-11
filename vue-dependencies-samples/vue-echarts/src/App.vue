@@ -1,27 +1,17 @@
 <template>
     <div id="app">
         <router-view></router-view>
-       <!-- <div>
-            <v-chart :style="{width: '800px', height: '800px'}" :option="animateOption"/>
-        </div>-->
+        <!-- <div>
+             <v-chart :style="{width: '800px', height: '800px'}" :option="animateOption"/>
+         </div>-->
     </div>
 </template>
 
 <script>
 
-
-
-
-
     export default {
         data() {
-
-
-            return {
-
-            //     /* 动画配置 */
-
-             }
+            return {}
         },
         mounted() {
 

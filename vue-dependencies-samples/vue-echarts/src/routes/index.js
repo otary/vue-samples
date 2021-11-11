@@ -25,5 +25,8 @@ export default new VueRouter({
     }, {
         path: '/radar',
         component: ()=> import('../pages/Radar')
+    }, {
+        path: '/sunburst',
+        component: ()=> import('../pages/SunBurst')
     }]
 })
