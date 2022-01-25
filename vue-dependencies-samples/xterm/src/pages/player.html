@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../assets/asciinema-player/asciinema-player.css"/>
+
+    <script src="../assets/asciinema-player/asciinema-player.min.js"></script>
+</head>
+<body>
+
+<div id="player"></div>
+
+<script>
+ //  window.asciinema.player.js.CreatePlayer(document.getElementById('player'), './cast/test2.cast');
+   window.asciinema.player.js.CreatePlayer(document.getElementById('player'), 'http://localhost:8080/asciinema/record-file');
+</script>
+</body>
+</html>

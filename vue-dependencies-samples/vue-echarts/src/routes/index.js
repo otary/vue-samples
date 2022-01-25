@@ -28,5 +28,8 @@ export default new VueRouter({
     }, {
         path: '/sunburst',
         component: ()=> import('../pages/SunBurst')
+    }, {
+        path: '/time-line-chart',
+        component: ()=> import('../pages/TimeLineChart')
     }]
 })
