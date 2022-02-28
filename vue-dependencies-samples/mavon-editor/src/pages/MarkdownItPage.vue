@@ -1,10 +1,9 @@
 <template>
   <div>
-    <textarea v-model="original" :style="{width: '100%', height: '300px'}">
-    </textarea>
-     <div>
-      {{result}}
-     </div>
+    <textarea v-model="original" :style="{width: '100%', height: '300px'}"/>
+    <div>
+        {{result}}
+    </div>
   </div>
 </template>
 
@@ -13,8 +12,7 @@ export default {
   name: "MarkdownItPage",
   data() {
     return {
-      original: '',
-
+      original: ''
     }
   },
   mounted() {

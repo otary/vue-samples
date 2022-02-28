@@ -10,5 +10,8 @@ export default new VueRouter({
     }, {
         path: '/markdown-it',
         component: () => import('../pages/MarkdownItPage')
+    }, {
+        path: '/markdown-it2',
+        component: () => import('../pages/MarkdownIt2Page')
     }]
 })
