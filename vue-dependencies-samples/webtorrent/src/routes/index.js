@@ -9,9 +9,5 @@ export default new VueRouter({
         path: '/',
         name: 'Home',
         component: () => import('../pages/Home')
-    },{
-        path: '/cust',
-        name: 'Cust',
-        component: () => import('../pages/Cust')
     }]
 })

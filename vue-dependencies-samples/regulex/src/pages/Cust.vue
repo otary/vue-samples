@@ -1,12 +1,11 @@
 <template>
     <div>
-        <div id="regexpContainer" style="width: 500px;height: 500px; border: 1px solid;">
 
-        </div>
     </div>
 </template>
 
 <script>
+
     function getRegexFlags(re) {
         let flags = ""
         flags += re.ignoreCase ? "i" : ""
@@ -15,10 +14,9 @@
         return flags
     }
 
-    import {parse, Kit, Raphael, visualize} from 'regulex_common'
+    import {parse, Kit, Raphael, visualize} from '../regulex/index'
 
     export default {
-        name: "Home",
         mounted() {
             const regExp2 = /var\s+([a-zA-Z_]\w*);/
             console.log(parse(regExp2.source))
