@@ -33,9 +33,8 @@
                 console.log('打开数据库成功:' + db);
             };
 
-
             // 数据库版本更新
-            request.inuparadeneeded = function (event) {
+            request.onupgradeneeded = function (event) {
                 console.log(JSON.stringify(event));
                 console.log('数据库版本有变化...');
 

@@ -13,20 +13,22 @@
 <script>
     import epub from 'epubjs';
 
-    function getCoverURL(book, callback) {
-        book.coverUrl().then(function (blobUrl) {
-            var xhr = new XMLHttpRequest();
-            xhr.responseType = 'blob';
-            xhr.onload = function () {
-                var recoveredBlob = xhr.response;
-                var reader = new FileReader();
-                reader.onload = function () {
-                    callback && callback(reader.result);
+    function getCoverURL(book) {
+        return new Promise((resolve, reject) => {
+            book.coverUrl().then(function (blobUrl) {
+                const xhr = new XMLHttpRequest();
+                xhr.responseType = 'blob';
+                xhr.onload = function () {
+                    const recoveredBlob = xhr.response;
+                    const reader = new FileReader();
+                    reader.onload = function () {
+                        resolve(reader.result);
+                    };
+                    reader.readAsDataURL(recoveredBlob);
                 };
-                reader.readAsDataURL(recoveredBlob);
-            };
-            xhr.open('GET', blobUrl);
-            xhr.send();
+                xhr.open('GET', blobUrl);
+                xhr.send();
+            });
         });
     }
 
@@ -57,7 +59,7 @@
             });
 
             // 书籍信息
-            book.loaded.metadata.then((metadata)=> {
+            book.loaded.metadata.then((metadata) => {
                 console.log('metadata => ', metadata);
                 /*{
                     "title": "修真高手混都市",
@@ -77,6 +79,12 @@
                     "spread": "",
                     "direction": null
                 }*/
+            });
+
+            book.loaded.navigation.then((nav) => {
+                console.log('navigation => ', nav);
+                // 目录
+                console.log('toc => ', nav.toc);
             });
 
 
