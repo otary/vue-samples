@@ -294,9 +294,9 @@ new Vue({
 
                 let cur = (total - money) / money / month * 12 * 100;
                 let arr = calcTotal(money, month, cur, total, method);
-
                 let rt, time = 0, result = 'unknown';
                 while (time < 1000) {
+        
                     time++;
                     if (arr.length === 1) {
                         result = Math.round(arr[0] * 10) / 10 + '％';
@@ -308,7 +308,6 @@ new Vue({
                         arr = calcTotal(money, month, cur, total, method);
                     }
                 }
-
                 return result;
             };
 
