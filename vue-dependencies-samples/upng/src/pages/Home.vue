@@ -43,10 +43,13 @@
               const fileReader = new FileReader();
               fileReader.readAsArrayBuffer(blob);
               fileReader.onload = function (e) {
-                console.log(e.target.result)
+                console.log()
+                const ab = e.target.result;
+                const rgba8 = UPNG.toRGBA8(UPNG.decode(ab));
 
+                console.log(rgba8)
                 const a =  UPNG.encode([
-                  e.target.result
+                  rgba8
                 ], 300, 300, 0)
 
                 console.log(arraybuffer2base64(a))
