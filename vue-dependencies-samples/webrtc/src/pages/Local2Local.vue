@@ -78,7 +78,7 @@
                     // 获取描述
                     function (desc) {
                         localConnection.setLocalDescription(desc);
-                       // remoteConnection.setRemoteDescription(desc);
+                        remoteConnection.setRemoteDescription(desc);
 
                         // 回复
                         remoteConnection.createAnswer().then(

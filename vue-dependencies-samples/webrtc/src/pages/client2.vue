@@ -4,7 +4,13 @@
 
         <textarea v-model="source" rows="5"/>
 
+
         <button @click="sendData">发送</button>
+
+        <div>
+            max: {{receiveProgress.max}}
+            current: {{receiveProgress.value}}
+        </div>
     </div>
 </template>
 
@@ -12,72 +18,142 @@
     export default {
         data() {
             return {
-                source: 'yyy'
+                source: 'yyy',
+                sendChannel: null,
+                connection: null,
+                receiveProgress: {
+                    max: '',
+                    value: ''
+                }
             }
         },
         mounted() {
-            const config = {
-                iceServers: [
-                    {
-                        urls: ['stun:stun.oonnnoo.com:3478'],
-                    },
-                ],
-                iceTransportPolicy: 'all',
-                iceCandidatePoolSize: '0',
-            };
-            const connection = new RTCPeerConnection(config);
-            connection.onicecandidate = (e) => {
-                if (e.candidate) {
-                    // 保存自己的candidate
-                    localStorage.setItem('candidate2', JSON.stringify({
-                        type: 'candidate',
-                        label: e.candidate.sdpMLineIndex,
-                        id: e.candidate.sdpMid,
-                        candidate: e.candidate.candidate,
-                    }));
-
-                    let candidate1Data = localStorage.getItem("candidate1");
-                    if (candidate1Data) {
-                        candidate1Data = JSON.parse(candidate1Data);
-                        const candidate1 = new RTCIceCandidate({
-                            sdpMLineIndex: candidate1Data.label,
-                            candidate: candidate1Data.candidate,
-                        });
-                        connection.addIceCandidate(candidate1);
-                        console.log('添加client1连接成功!');
-                    }
-                }
-            };
-
-            connection.ondatachannel = (e) => {
-
-                /*if (!dc) {
-                    dc = e.channel;
-                    dc.onmessage = recevemsg;
-                    dc.onopen = dataChannelStateChange;
-                    dc.onclose = dataChannelStateChange;
-                }*/
-            };
-
-
-            connection.createOffer().then((desc) => {
-                    connection.setLocalDescription(desc);
-
-                    // 保存自己的candidate
-                    localStorage.setItem('desc2', JSON.stringify(desc));
-
-                    const desc1 = localStorage.getItem('desc1');
-                    if (desc1) {
-                        connection.setRemoteDescription(new RTCSessionDescription(JSON.parse(desc1)));
-                    }
-                }
-            ).catch((e) => {
-                console.log('Failed to create session description: ' + e.toString())
-            });
+            this.connect();
         },
         methods: {
             sendData() {
+                this.sendChannel.send(this.source);
+            },
+            connect() {
+                const config = {
+                    iceServers: [
+                        {
+                            urls: ['stun:stun.xten.com:3478'],
+                        },
+                    ],
+                    iceTransportPolicy: 'all',
+                    iceCandidatePoolSize: '0',
+                };
+                const connection = new RTCPeerConnection(config);
+                this.connection = connection;
 
+                // 发送信道
+                this.sendChannel = connection.createDataChannel('sendDataChannel');
+
+                this.sendChannel.onopen = function (e) {
+                    console.log('sendChannel open...', e);
+                };
+                this.sendChannel.onclose = function (e) {
+                    console.log('sendChannel close...', e);
+                };
+
+                connection.onicecandidate = e => {
+                    console.log('localConnect onicecandidate', e);
+
+                    if (e.candidate) {
+                        // 保存自己的candidate
+                        localStorage.setItem('candidate2', JSON.stringify({
+                            type: 'candidate',
+                            label: e.candidate.sdpMLineIndex,
+                            id: e.candidate.sdpMid,
+                            candidate: e.candidate.candidate,
+                        }));
+
+                        // 添加IceCandidate
+                        /*let candidate1Data = localStorage.getItem("candidate1");
+                        if (candidate1Data) {
+                            candidate1Data = JSON.parse(candidate1Data)
+                            const candidate1 = new RTCIceCandidate({
+                                sdpMLineIndex: candidate1Data.label,
+                                candidate: candidate1Data.candidate,
+                            });
+                            connection.addIceCandidate(candidate1).then(()=> {
+                                console.log('添加client1连接成功!');
+                            }).catch((e)=> {
+                                console.log('添加client1连接错误!', e)
+                            });
+                        }*/
+
+                    }
+                };
+
+                const that = this;
+                let receiveBuffer = [];
+                let receiveSize = 0;
+                connection.ondatachannel = (e) => {
+                    const dc = e.channel;
+                    dc.onmessage = function (e) {
+                        if (typeof e.data === 'string') {
+                            const data = JSON.parse(e.data);
+                            if (data.type === 'fileInfo') {
+                               const fileInfo = data.data;
+
+                               console.log('收到文件信息 => ', fileInfo);
+
+                                that.receiveProgress.max = fileInfo.size;
+                            }
+                            return;
+                        }
+
+                        receiveBuffer.push(e.data);
+                        receiveSize += e.data.byteLength;
+
+                        that.receiveProgress.value = receiveSize;
+
+                        console.log('收到消息=>', e)
+                    };
+                    dc.onopen = function (e) {
+                        console.log('打开=> ', e)
+                    };
+                    dc.onclose = function (e) {
+
+                    };
+
+                };
+
+                window.localStorage.setItem("otherjoin", Math.random() + "");
+
+
+                window.addEventListener("storage", function (e) {
+                    if (e.key == 'desc1') {
+                        console.log('setRemoteDescription => ', e.newValue)
+                        connection.setRemoteDescription(new RTCSessionDescription(JSON.parse(e.newValue)));
+
+                        connection.createAnswer().then((desc) => {
+                            console.log('answer => ', desc);
+                            connection.setLocalDescription(desc);
+
+                            window.localStorage.setItem("answer", JSON.stringify(desc));
+                        }).catch((e) => {
+                            console.log('回复client1出错!', e)
+                        });
+                    } else if (e.key == 'candidate1') {
+                        let candidate1Data = e.newValue;
+                        if (candidate1Data) {
+                            candidate1Data = JSON.parse(candidate1Data)
+                            const candidate1 = new RTCIceCandidate({
+                                sdpMLineIndex: candidate1Data.label,
+                                candidate: candidate1Data.candidate,
+                            });
+
+                            connection.addIceCandidate(candidate1).then(() => {
+                                console.log('添加client1连接成功!');
+                            }).catch((e) => {
+                                console.log('添加client1连接错误!', e)
+                            });
+                        }
+                    }
+                });
             }
         }
     }
