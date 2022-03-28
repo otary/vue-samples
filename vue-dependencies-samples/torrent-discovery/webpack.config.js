@@ -22,9 +22,7 @@ module.exports = (options = {}) => ({
       },
       {
         test: /\.js$/,
-        use: [{
-          loader: 'babel-loader'
-        }],
+        use: ['babel-loader'],
         exclude: /node_modules/
       },
       {
@@ -72,8 +70,5 @@ module.exports = (options = {}) => ({
       index: url.parse(options.dev ? '/assets/' : publicPath).pathname
     }
   },
-  devtool: options.dev ? '#eval-source-map' : '#source-map',
-  node: {
-    fs: 'empty'
-  }
+  devtool: options.dev ? '#eval-source-map' : '#source-map'
 })

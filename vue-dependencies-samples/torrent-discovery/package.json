@@ -9,9 +9,9 @@
   },
   "dependencies": {
     "element-ui": "^2.3.4",
+    "torrent-discovery": "^9.4.10",
     "vue": "^2.5.16",
-    "vue-router": "^3.5.2",
-    "webtorrent": "^1.8.12"
+    "vue-router": "^3.5.2"
   },
   "engines": {
     "node": ">=6"
