@@ -16,7 +16,8 @@ export default {
       original: '{abc src="xxx"} \n' +
           '# 标题 \n' +
           '> 标签 \n' +
-          'H~2~0'
+          'H~2~0 \n' +
+          '![sdfsdf](https://img0.baidu.com/it/u=1596977024,2747475854&fm=253&fmt=auto&app=138&f=JPEG?w=640&h=421)'
     }
   },
   computed: {
@@ -41,6 +42,12 @@ export default {
         });
         return true;
       });*/
+
+     // 小修改（图片标签上增加个属性）
+     md.renderer.rules.image = function(tokens, idx, options, env, self) {
+       tokens[idx].attrSet('title', '你知道的太多了')
+       return md.renderer.renderToken(tokens, idx, options, env, self);
+     }
 
       md.inline.ruler.after('emphasis','second-test', (state) => {
         const matched = state.src.match(/^\{abc(.*)\}$/);
