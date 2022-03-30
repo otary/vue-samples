@@ -9,12 +9,14 @@
 
 <script>
 
+
 export default {
   name: "MarkdownIt2Page",
   data() {
     return {
       original: '{abc src="xxx"} \n' +
           '# 标题 \n' +
+          '## 收到JFK士大夫' +
           '> 标签 \n' +
           'H~2~0 \n' +
           '![sdfsdf](https://img0.baidu.com/it/u=1596977024,2747475854&fm=253&fmt=auto&app=138&f=JPEG?w=640&h=421)'
@@ -44,12 +46,34 @@ export default {
       });*/
 
      // 小修改（图片标签上增加个属性）
-     md.renderer.rules.image = function(tokens, idx, options, env, self) {
+    /* md.renderer.rules.image = function(tokens, idx, options, env, self) {
        tokens[idx].attrSet('title', '你知道的太多了')
        return md.renderer.renderToken(tokens, idx, options, env, self);
-     }
+     }*/
 
-      md.inline.ruler.after('emphasis','second-test', (state) => {
+      /**
+       * 修改 <h1> 标签
+       * @param tokens
+       * @param idx
+       * @returns {string|string}
+       */
+     md.renderer.rules.heading_open = function(tokens, idx) {
+       const token = tokens[idx];
+       if (token.tag === 'h1') {
+         return "<h1><tt>";
+       }
+        return md.renderer.renderToken(tokens, idx);
+     }
+      md.renderer.rules.heading_close = function(tokens, idx) {
+        const token = tokens[idx];
+        if (token.tag === 'h1') {
+          return "</tt></h1>";
+        }
+        return md.renderer.renderToken(tokens, idx);
+      }
+
+
+     /* md.inline.ruler.after('emphasis','second-test', (state) => {
         const matched = state.src.match(/^\{abc(.*)\}$/);
         if (matched == null) {
           return false;
@@ -72,9 +96,7 @@ export default {
         state.posMax = max;
 
         return true;
-
-       // return true;
-      });
+      });*/
 
 
 
