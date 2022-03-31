@@ -1,13 +1,20 @@
 module.exports = {
     base: '/',
     lang: 'zh-CN',
-    title: 'Hello VuePress',
-    description: 'Just playing around',
+    title: '大大的标题',
+    description: '这是一个描述',
+    head: [
+        ['meta', {name: 'theme-color', content: '#3eaf7c'}],
+        ['meta', {name: 'apple-mobile-web-app-capable', content: 'yes'}],
+        ['meta', {name: 'apple-mobile-web-app-status-bar-style', content: 'black'}]
+    ],
     themeConfig: {
+        // 导航栏Logo
+        logo: 'https://xiao-akatsuki.github.io/axios.org/logo/logo.svg',
         navbar: [
             {
-                text: '配置',
-                link: '/guide/',
+                text: '首页',
+                link: '/',
             },
             {
                 text: '提出问题',
@@ -41,14 +48,13 @@ module.exports = {
             }
         ],
         sidebar: [
-            '/guide/README.md',
-            '/guide/MinimalExample.md',
-            '/guide/POSTRequests.md'
+            '/',
+            '/翻译校对流程',
+            '/resource'
         ],
-        sidebarDepth: 2,
-        logo: 'https://xiao-akatsuki.github.io/axios.org/logo/logo.svg',
-        repoLabel: 'axios',
-        repo: 'xiao-akatsuki/axios',
+        sidebarDepth: 1,
+        //repoLabel: 'axios',
+        //repo: 'xiao-akatsuki/axios',
         editLink: false,
         darkMode: false,
     },

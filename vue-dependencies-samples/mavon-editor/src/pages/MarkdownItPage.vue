@@ -25,7 +25,6 @@
 
     const container = require('markdown-it-container');
 
-
     function createContainer (klass, defaultTitle) {
         return [container, klass, {
             render (tokens, idx) {
@@ -92,9 +91,6 @@
                 return md.render(this.original)
             },
             result2() {
-
-
-
                 const md = require('markdown-it')({
                     html: true,
                     // 代码高亮
