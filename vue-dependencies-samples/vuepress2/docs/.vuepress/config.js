@@ -1,3 +1,7 @@
+const {getChildren} = require('./utils/sidebar-auto');
+
+console.log(getChildren('./docs', 'resource'))
+
 module.exports = {
     base: '/',
     lang: 'zh-CN',
@@ -11,7 +15,7 @@ module.exports = {
     themeConfig: {
         // 导航栏Logo
         logo: 'https://xiao-akatsuki.github.io/axios.org/logo/logo.svg',
-        navbar: [
+        /*navbar: [
             {
                 text: '首页',
                 link: '/',
@@ -46,16 +50,19 @@ module.exports = {
                     },
                 ]
             }
-        ],
-        sidebar: [
-            '/',
-            '/翻译校对流程',
-            '/resource'
-        ],
-        sidebarDepth: 1,
+        ],*/
+        sidebar: [{
+            title: 'General',
+            collapsable: false,
+            children: [
+                ['/general/button', 'Button 按钮'],
+                ['/翻译排版指南' ,  'test']
+            ]
+        }],
+        sidebarDepth: 0,
         //repoLabel: 'axios',
         //repo: 'xiao-akatsuki/axios',
-        editLink: false,
-        darkMode: false,
-    },
+       /* editLink: false,
+        darkMode: false,*/
+    }
 }

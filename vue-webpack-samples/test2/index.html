@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<canvas id="mouseEffectCanvans"/>
+
+<style>
+    #mouseEffectCanvans {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        /*cursor: none;*/
+    }
+</style>
+
+<script>
+
+    /**
+     * 振荡器
+     */
+    class Oscillator {
+
+        value = 0;
+
+        constructor(options = {}) {
+            this.phase = options.phase || 0;
+            this.offset = options.offset || 0;
+            this.frequency = options.frequency || 0.001;
+            // 振幅
+            this.amplitude = options.amplitude || 1;
+        }
+
+        update() {
+            this.phase += this.frequency;
+            this.value = this.offset + Math.sin(this.phase) * this.amplitude;
+            return this.value;
+        }
+
+        value() {
+            return value;
+        }
+    }
+
+    class Node {
+
+        constructor() {
+            this.x = 0;
+            this.y = 0;
+            this.vy = 0;
+            this.vx = 0;
+        }
+
+    }
+
+    /**
+     * 卷须
+     */
+    class Tendril {
+
+
+        constructor(target, options = {}) {
+            this.spring = options.spring + (Math.random() * 0.1) - 0.05;
+            // 收缩速度
+            this.friction = (options.friction || 0.5) + (Math.random() * 0.01) - 0.005;
+            // 发散程度
+            this.dampening = options.dampening || 0.25;
+            this.tension = options.tension || 0.98;
+            // 轨迹长度
+            this.size = options.size || 50;
+
+            this.nodes = [];
+            this.target = target;
+
+            for (let i = 0; i < this.size; i++) {
+                let node = new Node();
+                node.x = this.target.x || 0;
+                node.y = this.target.y || 0;
+
+                this.nodes.push(node);
+            }
+        }
+
+        update() {
+            let spring = this.spring,
+                node = this.nodes[0];
+
+           // console.log(this.nodes)
+
+            node.vx += (this.target.x - node.x) * spring;
+            node.vy += (this.target.y - node.y) * spring;
+
+            //console.log(node)
+
+            for (let prev, i = 0, n = this.nodes.length; i < n; i++) {
+                node = this.nodes[i];
+                if (i > 0) {
+                    prev = this.nodes[i - 1];
+
+                    node.vx += (prev.x - node.x) * spring;
+                    node.vy += (prev.y - node.y) * spring;
+                    node.vx += prev.vx * this.dampening;
+                    node.vy += prev.vy * this.dampening;
+                }
+
+                node.vx *= this.friction;
+                node.vy *= this.friction;
+                node.x += node.vx;
+                node.y += node.vy;
+
+                spring *= this.tension;
+            }
+
+
+        }
+
+        draw(ctx) {
+            let x = this.nodes[0].x,
+                y = this.nodes[0].y,
+                a, b;
+
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+
+            for (let i = 1, n = this.nodes.length - 2; i < n; i++) {
+
+                a = this.nodes[i];
+                b = this.nodes[i + 1];
+                x = (a.x + b.x) * 0.5;
+                y = (a.y + b.y) * 0.5;
+
+                ctx.quadraticCurveTo(a.x, a.y, x, y);
+            }
+
+            a = this.nodes[this.nodes.length - 2];
+            b = this.nodes[this.nodes.length - 1];
+
+            ctx.quadraticCurveTo(a.x, a.y, b.x, b.y);
+            ctx.stroke();
+            ctx.closePath();
+        }
+
+    }
+
+
+    let target = {},
+        ctx = null,
+        hue = null;
+
+    function onEffectMousemove(event) {
+        if (event.touches) {
+            target.x = event.touches[0].pageX;
+            target.y = event.touches[0].pageY;
+        } else {
+            target.x = event.clientX
+            target.y = event.clientY;
+        }
+        event.preventDefault();
+    }
+
+    let tendrils = [];
+    let trails = 20;
+
+    window.onload = function () {
+        ctx = document.getElementById('mouseEffectCanvans').getContext('2d');
+        hue = new Oscillator({
+            phase: Math.random() * Math.TWO_PI,
+            amplitude: 85,
+            frequency: 0.0015,
+            offset: 285
+        });
+
+
+        document.addEventListener('mousemove', onEffectMousemove);
+        document.addEventListener('touchmove', onEffectMousemove);
+        document.addEventListener('touchstart', onEffectMousemove);
+
+
+        for (let i = 0; i < trails; i++) {
+
+            tendrils.push(new Tendril(target, {
+                spring: 0.45 + 0.025 * (i / trails),
+                friction: 0.5
+            }));
+        }
+
+        // mousemove(event);
+        // reset();
+        loop();
+
+    }
+
+    window.requestAnimFrame = (function () {
+        return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function (fn) {
+            window.setTimeout(fn, 1000 / 60)
+        };
+    })();
+
+    function loop() {
+        ctx.globalCompositeOperation = 'source-out';
+        ctx.fillStyle = 'rgba(0,0,0,0)';
+        ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        ctx.globalCompositeOperation = 'lighter';
+        ctx.strokeStyle = 'hsla(' + Math.round(hue.update()) + ',90%,50%,0.25)';
+        ctx.lineWidth = 1;
+
+        /* if (ctx.frame % 60 == 0) {
+             console.log(hue.update(), Math.round(hue.update()), hue.phase, hue.offset, hue.frequency, hue.amplitude);
+         }*/
+
+        for (var i = 0, tendril; i < trails; i++) {
+            tendril = tendrils[i];
+            tendril.update();
+            tendril.draw(ctx);
+        }
+
+        requestAnimFrame(loop);
+    }
+
+
+</script>
+</body>
+</html>
