@@ -38,6 +38,7 @@
         }
 
         update() {
+            // 更新颜色值
             this.phase += this.frequency;
             this.value = this.offset + Math.sin(this.phase) * this.amplitude;
             return this.value;
@@ -91,12 +92,10 @@
             let spring = this.spring,
                 node = this.nodes[0];
 
-           // console.log(this.nodes)
+            node.vx += (this.target.x || 0 - node.x) * spring;
+            node.vy += (this.target.y || 0 - node.y) * spring;
 
-            node.vx += (this.target.x - node.x) * spring;
-            node.vy += (this.target.y - node.y) * spring;
-
-            //console.log(node)
+            console.log(this.target)
 
             for (let prev, i = 0, n = this.nodes.length; i < n; i++) {
                 node = this.nodes[i];
@@ -116,8 +115,6 @@
 
                 spring *= this.tension;
             }
-
-
         }
 
         draw(ctx) {
@@ -128,7 +125,8 @@
             ctx.beginPath();
             ctx.moveTo(x, y);
 
-            for (let i = 1, n = this.nodes.length - 2; i < n; i++) {
+
+            for (var i = 1, n = this.nodes.length - 2; i < n; i++) {
 
                 a = this.nodes[i];
                 b = this.nodes[i + 1];
@@ -141,6 +139,7 @@
             a = this.nodes[this.nodes.length - 2];
             b = this.nodes[this.nodes.length - 1];
 
+
             ctx.quadraticCurveTo(a.x, a.y, b.x, b.y);
             ctx.stroke();
             ctx.closePath();
@@ -149,7 +148,10 @@
     }
 
 
-    let target = {},
+    let target = {
+            x: 0,
+            y: 0
+        },
         ctx = null,
         hue = null;
 
@@ -170,7 +172,7 @@
     window.onload = function () {
         ctx = document.getElementById('mouseEffectCanvans').getContext('2d');
         hue = new Oscillator({
-            phase: Math.random() * Math.TWO_PI,
+            phase: Math.random() * Math.PI * 2,
             amplitude: 85,
             frequency: 0.0015,
             offset: 285
@@ -191,7 +193,6 @@
         }
 
         // mousemove(event);
-        // reset();
         loop();
 
     }
@@ -214,7 +215,7 @@
              console.log(hue.update(), Math.round(hue.update()), hue.phase, hue.offset, hue.frequency, hue.amplitude);
          }*/
 
-        for (var i = 0, tendril; i < trails; i++) {
+        for (let i = 0, tendril; i < trails; i++) {
             tendril = tendrils[i];
             tendril.update();
             tendril.draw(ctx);

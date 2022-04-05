@@ -39,7 +39,10 @@
             logo,
             form,
             buffer,
-            target = {},
+            target = {
+              x: 0,
+                y: 0
+            },
             tendrils = [],
             settings = {};
 
@@ -118,6 +121,8 @@
                     var spring = this.spring,
                         node = this.nodes[0];
 
+                    console.log(node)
+
                     node.vx += (target.x - node.x) * spring;
                     node.vy += (target.y - node.y) * spring;
 
@@ -146,14 +151,14 @@
 
                 draw: function () {
 
-                    var x = this.nodes[0].x,
+                    let x = this.nodes[0].x,
                         y = this.nodes[0].y,
                         a, b;
 
                     ctx.beginPath();
                     ctx.moveTo(x, y);
 
-                    for (var i = 1, n = this.nodes.length - 2; i < n; i++) {
+                    for (let i = 1, n = this.nodes.length - 2; i < n; i++) {
 
                         a = this.nodes[i];
                         b = this.nodes[i + 1];
@@ -163,10 +168,12 @@
                         ctx.quadraticCurveTo(a.x, a.y, x, y);
                     }
 
-                    console.log(this.nodes.length, i)
 
-                    a = this.nodes[i];
-                    b = this.nodes[i + 1];
+                   // a = this.nodes[i];
+                //    b = this.nodes[i + 1];
+
+                    a = this.nodes[this.nodes.length - 2];
+                    b = this.nodes[this.nodes.length - 1];
 
                     ctx.quadraticCurveTo(a.x, a.y, b.x, b.y);
                     ctx.stroke();
@@ -186,7 +193,7 @@
             document.addEventListener('touchmove', mousemove);
             document.addEventListener('touchstart', touchstart);
 
-            mousemove(event);
+            //mousemove(event);
             reset();
             loop();
         }
@@ -224,8 +231,8 @@
                 tendril.draw();
             }
 
-            ctx.frame++;
-            ctx.stats.update();
+           // ctx.frame++;
+           // ctx.stats.update();
             requestAnimFrame(loop);
         }
 
@@ -290,10 +297,10 @@
 
             document.addEventListener('mousemove', init);
             document.addEventListener('touchstart', init);
-            document.body.addEventListener('orientationchange', resize);
+           /* document.body.addEventListener('orientationchange', resize);
             window.addEventListener('resize', resize);
             window.addEventListener('focus', start);
-            window.addEventListener('blur', stop);
+            window.addEventListener('blur', stop);*/
 
             resize();
 
