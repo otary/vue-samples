@@ -36,11 +36,9 @@
 
         var ctx,
             hue,
-            logo,
-            form,
             buffer,
             target = {
-              x: 0,
+                x: 0,
                 y: 0
             },
             tendrils = [],
@@ -121,10 +119,15 @@
                     var spring = this.spring,
                         node = this.nodes[0];
 
-                    console.log(node)
-
                     node.vx += (target.x - node.x) * spring;
                     node.vy += (target.y - node.y) * spring;
+
+                    /*if (target.x > 0 && node.x > 0) {
+                        debugger
+                    }
+*/
+                   //   node.vx += (0 - node.x) * spring;
+                  //   node.vy += (0 - node.y) * spring;
 
                     for (var prev, i = 0, n = this.nodes.length; i < n; i++) {
 
@@ -134,16 +137,27 @@
 
                             prev = this.nodes[i - 1];
 
+                            //console.log(node.vx, node.vy, this.friction)
+
+                            //console.log(prev.x, node.x, prev.x - node.x)
+
                             node.vx += (prev.x - node.x) * spring;
                             node.vy += (prev.y - node.y) * spring;
                             node.vx += prev.vx * settings.dampening;
                             node.vy += prev.vy * settings.dampening;
+
+
                         }
 
                         node.vx *= this.friction;
                         node.vy *= this.friction;
                         node.x += node.vx;
                         node.y += node.vy;
+
+                      /*  if (i == 0 && node.x > 0) {
+                            console.log(node.x, node.y, node.vx, node.vy)
+                        }*/
+
 
                         spring *= settings.tension;
                     }
@@ -175,7 +189,16 @@
                     a = this.nodes[this.nodes.length - 2];
                     b = this.nodes[this.nodes.length - 1];
 
-                    ctx.quadraticCurveTo(a.x, a.y, b.x, b.y);
+                  //  console.log(a)
+
+                    if (!this.timer) {
+                        this.timer = setInterval(()=> {
+                            console.log(x, y, a.x, a.y, b.x, b.y)
+                        }, 1000);
+                    }
+
+
+                    //   ctx.quadraticCurveTo(a.x, a.y, b.x, b.y);
                     ctx.stroke();
                     ctx.closePath();
                 }
@@ -212,7 +235,7 @@
 
         function loop() {
 
-            if (!ctx.running) return;
+          //  if (!ctx.running) return;
 
             ctx.globalCompositeOperation = 'source-out';
             ctx.fillStyle = 'rgba(0,0,0,0)';

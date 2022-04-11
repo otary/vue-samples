@@ -187,7 +187,7 @@ bezierLibrary.curves = JSON.parse(localStorage.curves);
 
 favicon.width = favicon.height = 16 * pixelDepth;
 
-//update();
+update();
 //updateDelayed();
 
 /**

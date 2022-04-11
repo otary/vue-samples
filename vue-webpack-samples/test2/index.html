@@ -30,6 +30,7 @@
         value = 0;
 
         constructor(options = {}) {
+            //
             this.phase = options.phase || 0;
             this.offset = options.offset || 0;
             this.frequency = options.frequency || 0.001;
@@ -92,15 +93,27 @@
             let spring = this.spring,
                 node = this.nodes[0];
 
-            node.vx += (this.target.x || 0 - node.x) * spring;
-            node.vy += (this.target.y || 0 - node.y) * spring;
+            // console.log(node)
 
-            console.log(this.target)
+            node.vx += ((this.target.x || 0) - node.x) * spring;
+            node.vy += ((this.target.y || 0) - node.y) * spring;
+
+            // console.log(target.x, node.x, node.vx)
+
+            if (this.target.x > 0 && node.x > 0) {
+             //   debugger
+            }
 
             for (let prev, i = 0, n = this.nodes.length; i < n; i++) {
                 node = this.nodes[i];
                 if (i > 0) {
                     prev = this.nodes[i - 1];
+
+                    // console.log(prev.x, node.x, prev.x - node.x)
+
+                    /*if (node.vx > 0) {
+                        debugger
+                    }*/
 
                     node.vx += (prev.x - node.x) * spring;
                     node.vy += (prev.y - node.y) * spring;
@@ -108,10 +121,15 @@
                     node.vy += prev.vy * this.dampening;
                 }
 
+
                 node.vx *= this.friction;
                 node.vy *= this.friction;
                 node.x += node.vx;
                 node.y += node.vy;
+
+               /* if (i == 0 && node.x > 0) {
+                    console.log(node.x, node.y, node.vx, node.vy)
+                }*/
 
                 spring *= this.tension;
             }
@@ -125,6 +143,7 @@
             ctx.beginPath();
             ctx.moveTo(x, y);
 
+          //  console.log(x, y)
 
             for (var i = 1, n = this.nodes.length - 2; i < n; i++) {
 
@@ -139,6 +158,11 @@
             a = this.nodes[this.nodes.length - 2];
             b = this.nodes[this.nodes.length - 1];
 
+            if (!this.timer) {
+               this.timer = setInterval(()=> {
+                    console.log(x, y, a.x, a.y, b.x, b.y)
+                }, 1000);
+            }
 
             ctx.quadraticCurveTo(a.x, a.y, b.x, b.y);
             ctx.stroke();
@@ -167,7 +191,7 @@
     }
 
     let tendrils = [];
-    let trails = 20;
+    let trails = 10;
 
     window.onload = function () {
         ctx = document.getElementById('mouseEffectCanvans').getContext('2d');
@@ -192,9 +216,17 @@
             }));
         }
 
+        resize();
+
         // mousemove(event);
         loop();
 
+    }
+
+
+    function resize() {
+        ctx.canvas.width = window.innerWidth;
+        ctx.canvas.height = window.innerHeight;
     }
 
     window.requestAnimFrame = (function () {
@@ -204,6 +236,8 @@
     })();
 
     function loop() {
+        // if (!ctx.running) return;
+
         ctx.globalCompositeOperation = 'source-out';
         ctx.fillStyle = 'rgba(0,0,0,0)';
         ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);

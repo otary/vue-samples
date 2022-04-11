@@ -1,6 +1,12 @@
 <template>
     <div>
-        <canvas id="canvas" width="500" height="500"></canvas>
+        <div style="height: 300px;  border: 1px solid ">
+            xxxx
+        </div>
+        <div style="padding: 100px; margin: 100px; border: 1px solid ;">
+            <canvas id="canvas" width="500" height="500"></canvas>
+        </div>
+
 
         <pre id="code"></pre>
     </div>
@@ -51,7 +57,6 @@
                 //缁樺埗
                 function drawCanvas() {
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    drawUploadImg()
                     ctx.beginPath();
                     ctx.lineWidth = round.cpline.width;
                     ctx.strokeStyle = round.cpline.color;
@@ -106,13 +111,14 @@
                     code.innerHTML += "ctx.closePath();\n";
                 }
 
-                function mouseDownFun(e) {
-                    e = getPoint(e);
+                function mouseDownFun(e2) {
+                   let e = getPoint(e2);
                     var dx, dy;
                     for (var v in point) {
                         dx = point[v].x - e.x;
                         dy = point[v].y - e.y;
-                        //鍒ゆ柇鐐瑰嚮鍖哄煙鏄惁鍦ㄥ彲瑙佸渾鍐�
+                        console.log(dx, point[v].x, e.x, e2.pageX, canvas.offsetLeft);
+                        console.log(dy, point[v].y, e.y, e2.pageY, canvas.offsetTop);
                         if (Math.pow(dx, 2) + Math.pow(dy, 2) < Math.pow(round.point.radius, 2)) {
                             clickPoint = v;
                             sourcePoint = e;
