@@ -30,15 +30,18 @@ var self = window.CubicBezier = function(coordinates) {
 		}
 
 		this.coordinates = coordinates.split(',');
+
 	}
 	else {
 		this.coordinates = coordinates;
 	}
 
+
 	if(!this.coordinates) {
 		throw 'No offsets were defined';
 	}
 
+	console.log(this.coordinates)
 	this.coordinates = this.coordinates.map(function(n) { return +n; });
 
 	for(var i=4; i--;) {
@@ -171,9 +174,7 @@ self.prototype = {
 		});
 
 		ctx.moveTo(0, 0).lineTo(xy[0], xy[1]);
-		console.log(xy[0], xy[1], xy[2], xy[3])
-		ctx.moveTo(2,2).lineTo(xy[2], xy[3]);
-	//	ctx.moveTo(1,1).lineTo(xy[2], xy[3]);
+		ctx.moveTo(1,1).lineTo(xy[2], xy[3]);
 
 		ctx.stroke().closePath();
 
