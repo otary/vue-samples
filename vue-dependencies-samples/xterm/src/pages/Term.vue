@@ -14,8 +14,8 @@ export default {
   data() {
     return {
       socket: null,
-    //  socketURI: "ws://localhost:8080/webssh"
-      socketURI: "ws://localhost:8888/aiops/api/v1/oprt/WebShellServer/1"
+      socketURI: "ws://localhost:8080/webssh"
+     // socketURI: "ws://localhost:8888/aiops/api/v1/oprt/WebShellServer/1"
     }
   },
   mounted() {
