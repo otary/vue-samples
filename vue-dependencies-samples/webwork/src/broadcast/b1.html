@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button onclick="sendMessage()">
+    发送
+</button>
+
+<script>
+    var bc = new BroadcastChannel("test_channel");
+
+    function sendMessage() {
+        bc.postMessage("发送消息b1！");
+    }
+
+    bc.onmessage = function (evt) {
+        console.log('b1接收到消息: ', evt);
+    }
+</script>
+</body>
+</html>

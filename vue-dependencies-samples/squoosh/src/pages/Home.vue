@@ -2,7 +2,7 @@
     <div>
         <input id="imageUpload" type="file" value="图片上传"></input>
 
-        <input type="button" value="提交" @click="hanldeCompress"></input>
+        <input type="button" value="提交" @click="handleCompress"></input>
     </div>
 </template>
 
@@ -11,7 +11,7 @@
 
     export default {
         methods: {
-            hanldeCompress() {
+            handleCompress() {
                 const file = document.getElementById("imageUpload").files[0]
                 const data = compress(
                     file,

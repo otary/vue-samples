@@ -134,7 +134,7 @@
 
             var oscillator = context.createOscillator();
             oscillator.connect(context.destination);
-            oscillator.frequency.value = 500;
+            oscillator.frequency.value = 1000;
             oscillator.start(0);
             /*  setTimeout(function () {
                   oscillator.disconnect();
@@ -146,6 +146,7 @@
                 // 应该在其中绘制波形的CSS选择器或HTML元素。这是唯一必需的参数。
                 container: this.$refs.waveform,
                 // 光标的填充颜色，指示播放头的位置。
+                audioContext: context,
                 cursorColor: 'red',
                 // 更改波形容器的背景颜色。
                 backgroundColor: 'white',
@@ -159,7 +160,7 @@
                 // 播放音频的速度
                 audioRate: '1',
                 // 插件：此教程配置了光标插件和时间轴插件
-                plugins: [
+                /*plugins: [
                     // 光标插件
                     CursorPlugin.create({
                         showTime: true,
@@ -175,18 +176,18 @@
                     Timeline.create({
                         container: '#wave-timeline'
                     })
-                ]
+                ]*/
             });
 
             this.wavesurfer.on('error', function (e) {
                 console.warn(e)
             });
             //加载音频url
-            //  this.wavesurfer.load("/static/samples.mp3")
+          //  this.wavesurfer.load("/static/samples.mp3")
             // this.volumeValue = this.wavesurfer.getVolume() * 100
 
 
-            this.wavesurfer.load(oscillator);
+            //this.wavesurfer.load(oscillator);
 
 
             // })
