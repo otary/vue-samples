@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "element-ui": "^2.3.4",
-    "epubjs": "^0.3.93",
+    "epubjs": "^0.4.2",
     "vue": "^2.5.16",
     "vue-router": "^3.5.2"
   },
