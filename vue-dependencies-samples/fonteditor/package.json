@@ -10,7 +10,7 @@
   "dependencies": {
     "copy-webpack-plugin": "^4.6.0",
     "element-ui": "^2.3.4",
-    "fonteditor-core": "^2.1.8",
+    "fonteditor-core": "^2.1.9",
     "vue": "^2.5.16",
     "vue-router": "^3.5.2"
   },
